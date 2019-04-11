@@ -101,17 +101,20 @@
       $(function() {
         $('.select').change(function() {
           var val = $(this).val();
-          $('.list li').each(function() {
-            if($(this).data('category-type')==val){
-              $(this).show();
-            }
-            else if(val=='all'){
-              $(this).show();
-            }
-            else{
-              $(this).hide();
-            }
-          });
+          if(val=='all'){
+            $('.list li').show();
+          }else{
+            $('.list li').each(function() {
+              var date = $(this).data('category-type');
+
+              if(date == val){
+                $(this).show();
+              }
+              else{
+                $(this).hide();
+              }
+            });
+          }
         });
       });
     </script>
