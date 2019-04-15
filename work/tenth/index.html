@@ -70,6 +70,8 @@
       //
       $(function(){
         var i=0;
+        $('.search').after('<div class="message"></div>');
+        $('.message').css("margin-bottom: 50px; text-align: center;");
         $('.search__btn').click(function() {
           var key = $('#js-search-word').val();
           console.log(key);
@@ -91,19 +93,27 @@
              // この中にデータ取得後の動きを記述していきます。
              console.log(data);
              var count = data.count;
-             if(count===0){
-               $('.lists').html('<div class="message"　style="margin-bottom: 50px; text-align: center;">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</div>');
+             if(count==0){
+               error();
              }else{
                var bookList = '';
                $.each(data.Items, function(i,item) {
                  bookList += "<li class='lists__item'> <div class='lists__item__inner'> <a href='" + item.Item.itemUrl + "' class='lists__item__link' target='_blank'> <img src=' " + item.Item.largeImageUrl + "' class='lists__item__img' alt=''> <p class='lists__item__detail'>作品名：" + item.Item.title + "</p> <p class='lists__item__detail'>作者　：" + item.Item.author + "</p> <p class='lists__item__detail'>出版社：" + item.Item.publisherName + "</p> </a> </div> </li>"
                });
-               $('.lists').after(bookList);
+               $('.lists').prepend(bookList);
              }
            }).fail(function() {
-            　$('.lists').html('<div class="message"　style="margin-bottom: 50px; text-align: center;">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</div>');
+             error();
            });
         });
+        function error(){
+          $('.message').html('検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。')
+          $('input[type="text"]').change(function() {
+            i=0;
+            $('.lists').html('');
+            $('.message').html('');
+          });
+        }
         function countUp(){
           i++;
         }
