@@ -83,7 +83,7 @@
         function click(){
           keyword = $('#js-search-word').val();
           console.log(keyword);
-          if(keyword==beforeKeyword){
+          if(keyword===beforeKeyword){
             i++;
           }else{
             i=1
@@ -117,7 +117,7 @@
 
         function clear(books){
           if(bookCount==0){
-            error();
+            $('.message').html('検索結果が見つかりませんでした。')
           }else{
             var bookList = '';
             $.each(Item, function(i,item) {
@@ -128,7 +128,7 @@
         }
 
         function error(){
-          $('.message').html('検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。')
+          $('.message').html('エラーが発生しました。再度キーワードを入力して検索し直してください。')
         }
 
       });
